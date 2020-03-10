@@ -983,6 +983,7 @@ class HMailItem extends events.EventEmitter {
      * @param cb - a callback for fn(err, message_body_lines)
      */
     populate_bounce_message_with_headers (from, to, reason, header, cb) {
+        console.log('---------------------------------populate_bounce_message_with_headers in:', {from, to});
         const self = this;
         const CRLF = '\r\n';
 

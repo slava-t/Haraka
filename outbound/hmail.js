@@ -1232,10 +1232,12 @@ class HMailItem extends events.EventEmitter {
             err.bounced_rcpt = opts.bounce_recips;
         }
         this.bounce_error = err;
+        console.log('------------------------------------before bounce hook');
         plugins.run_hooks("bounce", this, err);
     }
 
     bounce_respond (retval, msg) {
+        console.log('-------------------------------bounce_respond in:', msg);
         if (retval !== constants.cont) {
             this.loginfo(`Plugin responded with: ${retval}. Not sending bounce.`);
             return this.discard(); // calls next_cb

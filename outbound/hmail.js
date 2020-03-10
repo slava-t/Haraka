@@ -921,7 +921,7 @@ class HMailItem extends events.EventEmitter {
     }
 
     populate_bounce_message (from, to, reason, cb) {
-        console.log('----------------------------------populate_bounce_message in:', {from, to});
+        this.loginfo(`----------------------------------populate_bounce_message in: ${{from, to}}`);
         const self = this;
 
         let buf = '';
@@ -984,7 +984,7 @@ class HMailItem extends events.EventEmitter {
      * @param cb - a callback for fn(err, message_body_lines)
      */
     populate_bounce_message_with_headers (from, to, reason, header, cb) {
-        console.log('---------------------------------populate_bounce_message_with_headers in:', {from, to});
+        this.loginfo(`---------------------------------populate_bounce_message_with_headers in: ${{from, to}}`);
         const self = this;
         const CRLF = '\r\n';
 
@@ -1232,12 +1232,12 @@ class HMailItem extends events.EventEmitter {
             err.bounced_rcpt = opts.bounce_recips;
         }
         this.bounce_error = err;
-        console.log('------------------------------------before bounce hook');
+        this.loginfo('------------------------------------before bounce hook');
         plugins.run_hooks("bounce", this, err);
     }
 
     bounce_respond (retval, msg) {
-        console.log('-------------------------------bounce_respond in:', msg);
+        this.loginfo(`-------------------------------bounce_respond in: ${msg}`);
         if (retval !== constants.cont) {
             this.loginfo(`Plugin responded with: ${retval}. Not sending bounce.`);
             return this.discard(); // calls next_cb

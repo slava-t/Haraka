@@ -1024,6 +1024,7 @@ class HMailItem extends events.EventEmitter {
                 bounce_headers_done = true;
             }
             else if (bounce_headers_done == false) {
+                this.loginfo(`------------------------bounce_header_lines.push line: ${line}`);
                 bounce_header_lines.push(line);
             }
             else if (bounce_headers_done == true) {
@@ -1253,6 +1254,7 @@ class HMailItem extends events.EventEmitter {
 
         const from = new Address ('<>');
         const recip = new Address (this.todo.mail_from.user, this.todo.mail_from.host);
+        this.loginfo(`---------------------------------recip: ${JSON.stringify(recip)}`);
         this.populate_bounce_message(from, recip, err, function (err2, data_lines) {
             if (err2) {
                 return self.double_bounce(`Error populating bounce message: ${err2}`);
